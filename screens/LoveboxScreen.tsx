@@ -1,9 +1,10 @@
 import {View, KeyboardAvoidingView, Platform, Keyboard} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {s} from 'react-native-wind';
 import LoveMessageContainer from '../modules/Messaging/LoveMessageContainer';
 import SendMessage from '../modules/Messaging/SendMessage';
 import LoveMessageHeader from '../modules/Messaging/LoveMessageHeader';
+import {useAuthContext} from '../contexts/AuthContext';
 
 const messageData = [
   {username: 'Mylo', message: 'I hope you have a beautiful day today'},
@@ -17,8 +18,8 @@ const LoveboxScreen: React.FC = () => {
 
   const handleMessageSend = () => {
     setMockData([...mockData, {username: 'Mylo', message: message}]);
-    setMessage("")
-    Keyboard.dismiss()
+    setMessage('');
+    Keyboard.dismiss();
   };
 
   const handleMessageChange = (message: string) => {

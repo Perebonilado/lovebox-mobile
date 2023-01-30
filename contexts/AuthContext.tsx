@@ -5,6 +5,7 @@ import {persistData, getPersistedData} from '../helpers';
 interface ContextOptions {
   token: string | null;
   isLoading: boolean;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const AuthContext = React.createContext<ContextOptions | null>(null);
@@ -12,7 +13,7 @@ const AuthContext = React.createContext<ContextOptions | null>(null);
 const AuthProvider: React.FC<React.PropsWithChildren> = ({children}) => {
   const {useState} = React;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>("sdfsd");
+  const [token, setToken] = useState<string | null>(null);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -24,8 +25,14 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({children}) => {
     setIsLoading(false);
   }, []);
 
+  React.useEffect(() => {
+    if (token) {
+      persistData({value: token, storageKey: authKey});
+    }
+  }, [token]);
+
   return (
-    <AuthContext.Provider value={{token, isLoading}}>
+    <AuthContext.Provider value={{token, isLoading, setToken}}>
       {children}
     </AuthContext.Provider>
   );

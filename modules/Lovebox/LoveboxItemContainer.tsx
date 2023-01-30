@@ -6,12 +6,24 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import LoveboxItem from './LoveboxItem';
 import {LoveboxItemInterface} from '../../interfaces/LoveboxItemInterface';
 import {s} from 'react-native-wind';
+import {useAuthContext} from '../../contexts/AuthContext';
+import {useRetrieveLoveboxesQuery} from '../../services/loveboxService';
 
 const LoveboxItemContainer: React.FC = () => {
+  const {token} = useAuthContext();
+  const {data, isLoading, isError, error} = useRetrieveLoveboxesQuery(
+    {
+      token: token || '',
+    },
+    {
+      skip: !token,
+    },
+  );
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={[s`bg-white`, {flex: 1}]}>
@@ -20,8 +32,8 @@ const LoveboxItemContainer: React.FC = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={{flex: 1}}>
             <ScrollView>
-              {mockData.map(item => (
-                <LoveboxItem key={item.id} {...item} />
+              {data?.data?.map(item => (
+                <LoveboxItem key={item._id} id={item._id} title={item.title} />
               ))}
             </ScrollView>
           </View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {s} from 'react-native-wind';
 import {
   View,
@@ -6,13 +6,24 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
+import {Button} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
+import {useLoginMutation} from '../../services/authService';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const LoginForm: React.FC = () => {
   const navigation: any = useNavigation();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [login, {data, isLoading, isError, error}] = useLoginMutation();
+  const { setToken } = useAuthContext()
+
+  useEffect(()=>{
+    if(data){
+      setToken(data.access_token)
+    }
+  },[data])
 
   return (
     <View style={s`bg-white h-full`}>
@@ -24,6 +35,8 @@ const LoginForm: React.FC = () => {
             s`w-full h-13  px-8 mb-4 border-2 border-gray-300 rounded-full`,
             {fontSize: 20},
           ]}
+          value={email}
+          onChangeText={text => setEmail(text)}
         />
         <TextInput
           secureTextEntry={true}
@@ -32,14 +45,16 @@ const LoginForm: React.FC = () => {
             s`w-full h-13 px-8 py-4 mb-4 border-2 border-gray-300 rounded-full`,
             {fontSize: 20},
           ]}
+          value={password}
+          onChangeText={text => setPassword(text)}
         />
         <TouchableOpacity>
-          <View
-            style={[s`rounded-full py-3 mb-4`, {backgroundColor: '#ff9768'}]}>
-            <Text style={[s`text-white text-center`, {fontSize: 20}]}>
-              Login
-            </Text>
-          </View>
+          <Button
+            onPress={() => login({email, password})}
+            buttonStyle={{borderRadius: 20}}
+            color={'#ff9768'}>
+            Login
+          </Button>
         </TouchableOpacity>
       </ScrollView>
 
