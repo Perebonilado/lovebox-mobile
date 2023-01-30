@@ -10,7 +10,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-
 import {useAuthContext} from './contexts/AuthContext';
 
 import Screens from './navigation/Navigation';
@@ -35,7 +34,9 @@ function App(): JSX.Element {
                     name={screen.title}
                     component={screen.component}
                     key={index}
-                    options={{headerShown: false}}
+                    options={{
+                      headerShown: false,
+                    }}
                   />
                 );
               })}

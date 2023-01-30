@@ -3,10 +3,14 @@ import React from 'react';
 import {s} from 'react-native-wind';
 import {Icon} from '@rneui/themed';
 import {LoveboxItemInterface} from '../../interfaces/LoveboxItemInterface';
+import { useNavigation } from '@react-navigation/native';
 
 const LoveboxItem: React.FC<LoveboxItemInterface> = ({id, title}) => {
+
+  const navigation:any = useNavigation()
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate("Lovebox")}>
       <View
         style={[
           s`h-20`,

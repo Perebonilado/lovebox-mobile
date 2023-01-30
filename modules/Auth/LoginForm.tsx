@@ -6,16 +6,18 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const LoginForm: React.FC = () => {
-  const navigation:any = useNavigation();
+  const navigation: any = useNavigation();
 
   return (
     <View style={s`bg-white h-full`}>
+      <Text style={s`text-center mb-4 font-black text-2xl`}>Welcome back</Text>
       <ScrollView>
-        <Text style={s`text-center mb-4 font-black text-2xl`}>Welcome back</Text>
         <TextInput
           placeholder="Email"
           style={[
@@ -39,16 +41,16 @@ const LoginForm: React.FC = () => {
             </Text>
           </View>
         </TouchableOpacity>
-
-        <View style={s`bg-white`}>
-          <Text style={[s`text-center`]}>Don't have an account?</Text>
-          <TouchableOpacity onPress={()=>navigation.navigate("signup-form")}>
-            <Text style={[s`text-center`, {color: '#ff9768'}]}>
-              Create an account
-            </Text>
-          </TouchableOpacity>
-        </View>
       </ScrollView>
+
+      <View style={s`bg-white`}>
+        <Text style={[s`text-center`]}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('signup-form')}>
+          <Text style={[s`text-center`, {color: '#ff9768'}]}>
+            Create an account
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

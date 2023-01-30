@@ -12,7 +12,7 @@ const AuthContext = React.createContext<ContextOptions | null>(null);
 const AuthProvider: React.FC<React.PropsWithChildren> = ({children}) => {
   const {useState} = React;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>("sdfsd");
 
   React.useEffect(() => {
     setIsLoading(true);

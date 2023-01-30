@@ -31,15 +31,15 @@ const AuthScreen: React.FC = () => {
             style={{flex: 1, justifyContent: 'space-between'}}
             resizeMode="cover">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View style={[s`h-1/2 justify-center items-center`]}>
+              <View style={[s`justify-center items-center`, {flex: 2}]}>
                 <Text style={s`font-black text-6xl`}>Lovebox</Text>
               </View>
             </TouchableWithoutFeedback>
 
             <View
               style={[
-                s`bg-white h-1/2 p-4 pt-10`,
-                {borderTopRightRadius: 50, borderTopLeftRadius: 50},
+                s`bg-white p-4 pt-10`,
+                {borderTopRightRadius: 50, borderTopLeftRadius: 50, flex: 5},
               ]}>
               <Stack.Navigator>
                 <Stack.Screen
